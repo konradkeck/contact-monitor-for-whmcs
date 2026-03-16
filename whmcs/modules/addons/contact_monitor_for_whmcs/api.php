@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../init.php';
 use WHMCS\Database\Capsule;
 
 $settings = Capsule::table('tbladdonmodules')
-    ->where('module', 'contact_monitor_whmcs')
+    ->where('module', 'contact_monitor_for_whmcs')
     ->whereIn('setting', ['enabled', 'bearer_token'])
     ->pluck('value', 'setting')
     ->toArray();
@@ -40,7 +40,7 @@ $resource = $_GET['resource'] ?? '';
 if ($resource === '') {
     echo json_encode([
         'ok'       => true,
-        'service'  => 'contact-monitor-whmcs',
+        'service'  => 'contact-monitor-for-whmcs',
         'time_utc' => gmdate('Y-m-d\TH:i:s\Z'),
         'status'   => 'healthy',
     ]);
