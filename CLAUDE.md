@@ -8,7 +8,7 @@ WHMCS addon module that exposes a read-only REST API for Contact Monitor synchro
 
 - One small change per iteration.
 - Before writing code, show a short plan in max 3 bullets.
-- Ask before creating new files outside: `whmcs/modules/addons/contact_monitor_for_whmcs/` and `ops/`
+- Ask before creating new files outside: `modules/addons/contact_monitor_for_whmcs/`
 - No refactors unless requested.
 - No formatting-only changes.
 - Simple PHP, no extra deps.
@@ -20,7 +20,7 @@ WHMCS addon module that exposes a read-only REST API for Contact Monitor synchro
 | Context | Value |
 |---------|-------|
 | WHMCS module key | `contact_monitor_for_whmcs` |
-| Module directory | `whmcs/modules/addons/contact_monitor_for_whmcs/` |
+| Module directory | `modules/addons/contact_monitor_for_whmcs/` |
 | Main file | `contact_monitor_for_whmcs.php` |
 | WHMCS function prefix | `contact_monitor_for_whmcs_` |
 | Display name | `Contact Monitor for WHMCS` |
@@ -32,7 +32,7 @@ WHMCS addon module that exposes a read-only REST API for Contact Monitor synchro
 ## File Structure
 
 ```
-whmcs/modules/addons/contact_monitor_for_whmcs/
+modules/addons/contact_monitor_for_whmcs/
 ├── contact_monitor_for_whmcs.php   WHMCS addon hooks (config/activate/deactivate/output)
 ├── api.php                         REST API entry point
 ├── README.txt                      short install note
@@ -41,17 +41,6 @@ whmcs/modules/addons/contact_monitor_for_whmcs/
     ├── ContactsQuery.php           tblcontacts — sub-contacts linked to clients
     ├── ServicesQuery.php           tblhosting + tblhostingaddons — services + addons
     └── TicketsQuery.php            tbltickets + tblticketreplies — messages (3yr history)
-
-ops/
-└── build-release.sh <version>      packages module folder into releases/contact-monitor-for-whmcs-{version}.zip
-
-spec/whmcs_sql/
-├── clients.sql                     reference WHMCS schema for clients
-├── contacts.sql                    reference schema for contacts
-├── services.sql                    reference schema for services
-└── tickets.sql                     reference schema for tickets
-
-releases/                           output of build-release.sh (git-ignored)
 ```
 
 ---
@@ -145,11 +134,6 @@ Revenue in `ClientsQuery` is normalized to **USD** via exchange rate from `tblcu
 
 ---
 
-## Build Release
+## Installation
 
-```bash
-./ops/build-release.sh 1.0.0
-# → releases/contact-monitor-for-whmcs-1.0.0.zip
-```
-
-ZIP contains only the `contact_monitor_for_whmcs/` folder, ready to drop into WHMCS.
+Copy `modules/addons/contact_monitor_for_whmcs/` to `<WHMCS_ROOT>/modules/addons/`.

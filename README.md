@@ -13,21 +13,10 @@ WHMCS addon module that exposes a read-only REST API used by the Contact Monitor
 
 ## Installation
 
-### Option A — from release ZIP
-
-1. Download the latest ZIP from the [Releases](../../releases) page, e.g. `contact-monitor-for-whmcs-1.0.0.zip`
-2. Extract it — you will get a folder named `contact_monitor_for_whmcs/`
-3. Upload the folder to your WHMCS server:
-   ```
-   <WHMCS_ROOT>/modules/addons/contact_monitor_for_whmcs/
-   ```
-
-### Option B — from source
-
-1. Clone this repo
-2. Copy the module folder manually:
+1. Clone this repo (or download and extract the ZIP)
+2. Copy the module folder to your WHMCS server:
    ```bash
-   cp -r whmcs/modules/addons/contact_monitor_for_whmcs/ <WHMCS_ROOT>/modules/addons/
+   cp -r modules/addons/contact_monitor_for_whmcs/ <WHMCS_ROOT>/modules/addons/
    ```
 
 ### Verify file structure
@@ -184,16 +173,3 @@ Each ticket row includes:
 | 401 | `{"error":"Unauthorized"}` | Missing or wrong Bearer token |
 | 400 | `{"ok":false,"error":"bad_request"}` | Unknown resource name |
 | 500 | `{"ok":false,"error":"server_error"}` | Database query failed |
-
----
-
-## Building a release ZIP
-
-Requires `zip` to be installed.
-
-```bash
-./ops/build-release.sh 1.0.0
-# → releases/contact-monitor-for-whmcs-1.0.0.zip
-```
-
-The ZIP contains only the `contact_monitor_for_whmcs/` folder and is ready to distribute.
