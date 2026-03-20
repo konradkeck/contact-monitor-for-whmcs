@@ -47,6 +47,37 @@ if ($resource === '') {
     exit;
 }
 
+if ($resource === 'config') {
+    // Detect WHMCS system URL from configuration table
+    $sysUrlRow = Capsule::table('tblconfiguration')
+        ->where('setting', 'SystemURL')
+        ->first();
+    $baseUrl = rtrim($sysUrlRow ? $sysUrlRow->value : '', '/');
+
+    // Detect admin directory by scanning WHMCS root for the admin area
+    // api.php lives at <whmcs_root>/modules/addons/contact_monitor_for_whmcs/api.php
+    $whmcsRoot = dirname(dirname(dirname(__DIR__)));
+    $adminDir  = 'admin'; // fallback
+    foreach (scandir($whmcsRoot) ?: [] as $entry) {
+        if ($entry === '.' || $entry === '..') {
+            continue;
+        }
+        if (is_dir($whmcsRoot . '/' . $entry)
+            && file_exists($whmcsRoot . '/' . $entry . '/clientssummary.php')
+        ) {
+            $adminDir = $entry;
+            break;
+        }
+    }
+
+    echo json_encode([
+        'ok'        => true,
+        'base_url'  => $baseUrl,
+        'admin_dir' => $adminDir,
+    ]);
+    exit;
+}
+
 $valid_resources = ['clients', 'contacts', 'services', 'tickets'];
 
 if (!in_array($resource, $valid_resources, true)) {
